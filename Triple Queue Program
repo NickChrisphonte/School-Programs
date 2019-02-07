@@ -1,0 +1,184 @@
+//Nicholas Chrisphonte
+//Dr. Calabrese
+//Triple Queue program
+//11/6/2018
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <stdbool.h>
+
+typedef struct node //creates the node structure
+{
+	int mynum;
+	struct node *next;
+}node;
+
+
+typedef struct queue //creates the queue structure
+{
+	struct node *front, *rear;
+}queue;
+queue *front = NULL; //intializes the front and rear pointers to NULL as the queue is empty
+queue *rear = NULL;
+
+node *queueMap[1000];
+int queueNumber = 3;
+
+void enQueue (int key)//adds an item to the queue
+{
+	node *n, *n1;
+	n = (node *)malloc(sizeof(node)); //makes space in memory for the size of the integer
+	printf("\nEnter a number: "); scanf("%d", &n->mynum); //user inputs
+	n->next = NULL; //sets the next pointer to a NULL value to show the end of the queue
+	
+	if(queueMap[key]==NULL) //if the queue is empty
+	{
+		queueMap[key] = n;
+	}
+	
+	else
+	{
+		for (n1 = queueMap[key]; n1->next != NULL; n1=n1->next); //if the queue is not empty add the name to the end of the list
+		n1 -> next = n;
+	}
+}
+
+int deQueue (node *toDelete, int key) //points to the first node of a queue for deletion and needs which queue it is
+{
+	node *n;
+	if(queueMap[key] == toDelete) //checks if the pointers are the same
+	{
+		n = queueMap[key]; //makes the next value the front of the queue
+		queueMap[key] = queueMap[key] ->next;
+		return deQueue;
+		free(n);
+	}
+}
+
+void masterQueue(int msum) //catches the sum of the smaller individual queues
+{
+	node *n, *n1;
+	n = (node *)malloc(sizeof(node)); //makes space in memory for the size of the integer
+	n->mynum = msum; //user inputs
+	n->next = NULL; //sets the next pointer to a NULL value to show the end of the queue
+	
+	if(rear==NULL) //if the queue is empty
+	{
+		rear = front = n;
+	}
+	
+	else
+	{
+		for (n1=rear; n1->next != NULL; n1=n1->next); //if the queue is not empty add the sum to the end of the list
+		n1 -> next = n;
+	}
+	
+	printMasterQueue(); //calls the print function
+	sumMasterQueue(); //calls the sum function
+}
+
+int sumQueue (int key)//adds most recent items of the queue and prints the sum
+{
+	node* n;
+	int sum = 0; //init sum
+	for (n = queueMap[key]; n != NULL; n=n->next) //for loop which iterates through the queue
+	{
+		sum = sum + n->mynum; //adds the int values at each step of the queue
+	}
+	
+	if (sum >= 100) //if sum of a queue is >100 the sum is added to the master queue and items are dequeued until the queue sum is <=40
+	{
+		printf("\nThe current sum of Queue[%d] is %d\n", key, sum);
+		while (sum > 40)
+		{
+		if (sum > 40)
+ 			{
+				deQueue(queueMap[key], key); //dequeues items
+				masterQueue(sum); //puts the sum in the master queue
+				sum = deQueue(queueMap[key], key); //returns the sum to check if the current queue is <=40
+				break;
+			}
+		}
+	}
+	
+}
+
+int sumMasterQueue ()//adds most recent items of the queue and prints the sum
+{
+	node* n;
+	int m2sum = 0;
+	for (n = rear; n != NULL; n=n->next) //for loop which iterates through the queue
+	{
+		m2sum = m2sum + n->mynum; //adds the int values at each step of the queue
+	}
+	
+	printf("\nThe sum is %d\n", m2sum); //prints the master sum
+	
+	if(m2sum >= 500) //exits the whole program
+	{
+		exit(0);
+	}
+}
+
+void printQueue (node* n)//prints the individual linked list queue
+{
+	node* n1;
+	for (n1=n; n != NULL; n=n->next) //for loop which iterates through the queue
+	{
+		printf("[%d] ", n->mynum); //prints the queue
+	}
+}
+
+void printQueueTable() //prints all 3 queues
+{
+	for (int i = 0; i<queueNumber; i++)
+	{
+		printf("\nQUEUE[%d]: ",i);
+		printQueue(queueMap[i]);
+	}
+}
+
+void printMasterQueue ()//prints the master linked list queue
+{
+	node* n;
+	printf("\nThe Master Queue: ");
+	for (n = rear; n != NULL; n=n->next) //for loop which iterates through the queue
+	{
+		printf("[%d] ", n->mynum); //prints the queue
+	}
+}
+
+
+main() //main function
+{
+
+	for (int i = 0; i<queueNumber; i++) //initializes all the pointers in the queueMap to NULL
+	{
+		queueMap[i] = NULL;
+	}
+	
+	int choice = 1; //inits
+	int key = 0; //starts off at the first queue
+	
+	while (choice ==1)
+	{
+		if (choice ==1) //adds a node to the queue
+		{
+			enQueue(key); //needs the proper queue to place the value in
+			
+			sumQueue(key); //needs the proper queue to sum
+		}
+		
+		printQueueTable();
+
+		printf("\nContinue adding to the queues?(press 1) "); //prompts the user to add another node
+		scanf("%d", &choice); //exits while loop if choice =/= 1
+		
+		key++; //queue key incrementation
+		if (key > 2) //makes sure that the key stays between 0-2
+		{
+			key = 0;
+		}
+	}
+}
