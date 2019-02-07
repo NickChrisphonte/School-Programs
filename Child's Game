@@ -1,0 +1,414 @@
+import turtle
+import random
+
+#Nicholas Chrisphonte
+#Dr. Calbrese
+#Comp Sci I
+#4/20/2018
+#Child's Game Project
+
+screen = turtle.Screen() #making the screen for screen commands
+screen.register_shape("triangle", ((5,-3), (0,5), (-5,-3))) #cute triangle turtle shape
+screen.setup (width=650, height=300, startx=0, starty=0) #setting screen region
+menuchoice = 1
+
+turnplayer = random.randint(1,3) #determines who goes first randomly
+
+answer = 0
+guess = 0
+questionlevel = random.randint(1,3) #determines how hard the qestion will be 1 = easy, 2 = medium, 3 = hard
+
+
+ref = turtle.Turtle() #initializes ref character who will draw the board
+ref.setx(-300)
+ref.forward(600)
+ref.right(90)
+ref.forward(90)
+ref.right(90)
+ref.forward(600)
+ref.right(90)
+ref.forward(90)
+
+ref.right(180) #draws the lines in the middle of the rectangle
+ref.forward(30)
+ref.left(90)
+ref.forward(600)
+
+ref.right(90)
+ref.forward(30)
+ref.right(90)
+ref.forward(600)
+
+ref.right(90)
+ref.forward(60)
+ref.right(90)
+ref.forward(20)
+ref.right(90)
+
+for i in range (0,4,1): #shitty loop that doesn't work but this code draws the dotted lines
+	ref.forward(10)
+	ref.penup()
+	ref.forward(10)
+	ref.pendown()
+ref.forward(10)
+ref.pendown()
+
+
+ref.left(90) #draws the finish line 
+ref.forward(560)
+ref.left(90)
+ref.forward(90)
+
+ref.right(180) #turns the ref and stamps him at the finish line
+ref.stamp()
+
+player1 = turtle.Turtle() #making the players and their characteristics
+player1.penup()
+player1.setx(-300)
+player1.sety(-15)
+player1.color('red')
+player1.shape("triangle")
+
+player2 = turtle.Turtle()
+player2.penup()
+player2.setx(-300)
+player2.sety(-45)
+player2.color('blue')
+player2.shape("triangle")
+
+player3 = turtle.Turtle()
+player3.penup()
+player3.setx(-300)
+player3.sety(-75)
+player3.color('green')
+player3.shape("triangle")
+
+
+
+
+
+
+	
+def questionhard(): #generates hard questions of adding 3 ints from 50-99
+	global turnplayer
+	global menuchoice
+	num1 = random.randint(50,99)
+	num2 = random.randint(50,99)
+	num3 = random.randint(50,99)
+	answer = num1+num2+num3
+	guess = int(input(print('what is',num1,'+',num2,'+',num3)))
+
+	if guess == answer: #if correct moves the player forward and if they pass the finish line it ask them if they want to play again
+		print ('correct')
+		if turnplayer == 1:
+			player1.forward(100)
+			if player1.xcor() > 280:
+				print ("Player 1 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+					
+		elif turnplayer == 2:
+			player2.forward(100)
+			if player2.xcor() > 280:
+				print ("Player 2 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		else:
+			player3.forward(100)
+			if player3.xcor() > 280:
+				print ("Player 3 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		return answer
+	else:
+		print ('incorrect') #if incorrect it moves the player backwards and forces the player back to the start if they will move off screen or past the starting line
+		if turnplayer == 1:
+			player1.forward(-20)
+			if player1.xcor() < -300:
+				player1.setx(-300)
+		elif turnplayer ==2:
+			player2.forward(-20)
+			if player2.xcor() < -300:
+				player2.setx(-300)
+		else:
+			player3.forward(-20)
+			if player3.xcor() < -300:
+				player3.setx(-300)
+		return answer
+
+def questionmedium():
+	global turnplayer
+	global menuchoice
+	num1 = random.randint(1,50)
+	num2 = random.randint(1,50)
+	num3 = random.randint(1,50)
+	answer = num1+num2+num3
+	guess = int(input(print('what is',num1,'+',num2,'+',num3)))
+
+	if guess == answer:
+		print ('correct')
+		if turnplayer == 1:
+			player1.forward(60)
+			if player1.xcor() > 280:
+				print ("Player 1 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		elif turnplayer == 2:
+			player2.forward(60)
+			if player2.xcor() > 280:
+				print ("Player 2 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		else:
+			player3.forward(60)
+			if player3.xcor() > 280:
+				print ("Player 3 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		return answer
+	else:
+		print ('incorrect')
+		if turnplayer == 1:
+			player1.forward(-60)
+			if player1.xcor() < -300:
+				player1.setx(-300)
+		elif turnplayer == 2:
+			player2.forward(-60)
+			if player2.xcor() < -300:
+				player2.setx(-300)
+		else:
+			player3.forward(-60)
+			if player3.xcor() < -300:
+				player3.setx(-300)
+		return answer
+
+def questioneasy():
+	global turnplayer
+	global menuchoice
+	num1 = random.randint(1,10)
+	num2 = random.randint(1,10)
+	num3 = random.randint(1,10)
+	answer = num1+num2+num3
+	guess = int(input(print('what is',num1,'+',num2,'+',num3)))
+
+	if guess == answer:
+		print ('correct')
+		if turnplayer == 1:
+			player1.forward(20)
+			if player1.xcor() > 280:
+				print ("Player 1 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		elif turnplayer == 2:
+			player2.forward(20)
+			if player2.xcor() > 280:
+				print ("Player 2 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		else:
+			player3.forward(20)
+			if player3.xcor() > 280:
+				print ("Player 3 wins")
+				menuchoice = int(input(print("Would you like to play again? (0=no,1=yes)")))
+				if menuchoice ==1:
+					player1.setx(-300)
+					player2.setx(-300)
+					player3.setx(-300)
+					return menuchoice
+				else:
+					screen.clearscreen()
+					print ("thank you for playing")
+					print(exit)
+					turnplayer = 5
+					return turnplayer, menuchoice
+					raise SystemExit
+		return answer
+	else:
+		print ('incorrect')
+		if turnplayer == 1:
+			player1.forward(-100)
+			if player1.xcor() < -300:
+				player1.setx(-300)
+		elif turnplayer == 2:
+			player2.forward(-100)
+			if player2.xcor() < -300:
+				player2.setx(-300)
+		else:
+			player3.forward(-100)
+			if player3.xcor() < -300:
+				player3.setx(-300)
+		return answer
+	
+while turnplayer < 4:
+	for turnplayer in range (1,4,1):
+		while turnplayer>0: #question asking loop
+			if questionlevel == 1:
+				print ("It is player",turnplayer,"'s turn.")
+				questionhard()#function call to hard question
+				questionlevel = random.randint(1,3)
+				if turnplayer <3:
+					turnplayer = turnplayer + 1 #cycles through the players 
+				else:
+					turnplayer = 1 #if its player 3s turn go back to 1
+			elif questionlevel ==2:
+				print ("It is player",turnplayer,"'s turn.")
+				questionmedium()
+				questionlevel = random.randint(1,3)
+				if turnplayer <3:
+					turnplayer = turnplayer + 1
+				else:
+					turnplayer = 1
+			else:
+				print ("It is player",turnplayer,"'s turn.")
+				questioneasy()
+				questionlevel = random.randint(1,3)
+				if turnplayer <3:
+					turnplayer = turnplayer + 1
+				else:
+					turnplayer = 1
+		
+		if turnplayer < 3:
+			turnplayer = turnplayer +1
+			while turnplayer>0: 
+					if questionlevel == 1:
+						print ("It is player",turnplayer,"'s turn.")
+						questionhard()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+					elif questionlevel ==2:
+						print ("It is player",turnplayer,"'s turn.")
+						questionmedium()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+					else:
+						print ("It is player",turnplayer,"'s turn.")
+						questioneasy()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+						
+		else:
+			turnplayer = 1
+			while turnplayer>0: 
+					if questionlevel == 1:
+						print ("It is player",turnplayer,"'s turn.")
+						questionhard()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+					elif questionlevel ==2:
+						print ("It is player",turnplayer,"'s turn.")
+						questionmedium()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+					else:
+						print ("It is player",turnplayer,"'s turn.")
+						questioneasy()
+						questionlevel = random.randint(1,3)
+						if turnplayer <3:
+							turnplayer = turnplayer + 1
+						else:
+							turnplayer = 1
+				
+	print("thank you for playing")
