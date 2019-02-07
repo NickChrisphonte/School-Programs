@@ -1,0 +1,57 @@
+; Nicholas Chrisphonte
+; 1 / 30 / 2019
+; Bubble Sort
+; Dr.Calabrese
+
+.386
+.model flat, stdcall
+.stack 4096
+ExitProcess PROTO, dwExitCode:DWORD
+
+.data
+count1 DWORD 5; loop counter for outer loop it is the amount of #'s in the array
+count2 DWORD 4; loop counter for inner loop it is the amount of #'s in the array-1
+temp DWORD 0; swap variable
+myarray DWORD 50h, 10h, 20h, 30h, 5h;  init array
+
+.code
+main PROC
+mov esi, 0; is the register for the 1st array element starting at 0
+mov ecx, count1; moves outer loop counter into ecx
+mov edi, type[myarray]; is the register for the 2nd array element which is 0 + 4(type of "myarray")
+;Outer loop
+L1:
+mov count1, ecx
+mov ecx, count2
+mov edx, edi
+;Inner loop
+L2:
+mov eax, myarray[esi]
+cmp myarray[edi], eax
+;JL and JG can be reveresed to swap from least to greatest element to greatest to least element
+JL SWAP
+JG NOSWAP
+;if myarray 1st element is greater than my array 2nd element, swap their places
+SWAP:
+mov eax, myarray[esi]; moves element 1 into a register
+mov temp, eax; moves element 1 into the temp variable
+mov ebx, myarray[edi]; moves element 2 into a register
+mov myarray[esi], ebx; moves element 2 from register to element 1's place
+mov eax, temp; moves element 1 back into a register
+mov myarray[edi], eax; moves element 1 from a register into element 2's place
+NOSWAP:
+add edi, type[myarray]; increases the 2nd element index by 1 in myarray
+loop L2
+add esi, type[myarray]; increases the 1st element's index by 1'
+;increases the 2nd elements index by 1 in a register and then moves it to edx
+add edx, 4
+mov edi, edx
+;decrement the counters
+dec count2
+dec count1
+mov ecx,count1
+loop L1
+
+INVOKE ExitProcess, 0
+main ENDP
+END main
