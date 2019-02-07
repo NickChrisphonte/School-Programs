@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <stdbool.h>
+
+typedef struct Albumi
+{
+	char songname[100][10];
+	int songlength[3];
+};
+
+
+typedef struct Album
+{
+	char albumname[100][10];
+	char artistname[100][10];
+	int totallength;
+	struct Albumi ai;
+};
+
+
+int main()
+{
+	struct Album a1;
+	int i;
+	i = 0;
+	
+	while (i<10)
+	{
+		int j=0;
+		
+		printf("Enter album %d name: ", i+1);
+		scanf("%s", a1.albumname);
+		
+		printf("Enter the artist name for %s: ", a1.albumname[i]);
+		scanf("%s", a1.artistname);
+		
+		while (j<3)
+		{
+			printf("Enter a name for song %d on %s: ", j+1, a1.albumname[i]);
+			scanf("%s", a1.ai.songname);
+			
+			printf("How long is song %d in minutes?: ", j+1);
+			scanf("%d", &a1.ai.songlength[j]);
+			
+			
+			j++;
+			
+			if (j == 3)
+			{
+				int k = 0;
+				a1.totallength = 0;
+				
+				for (k = 0; k < 3; k++)
+				{
+					a1.totallength += a1.ai.songlength[k];
+				}
+				
+				printf("Album %d is %d minutes long \n", i+1, a1.totallength);
+			}
+		}
+		i++;
+		
+	}
+	
+}
