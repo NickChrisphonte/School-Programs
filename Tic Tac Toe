@@ -1,0 +1,148 @@
+//Tic Tac Toe project
+//Nicholas Chrisphonte
+//Dr. Calabrese
+//Comp Sci I
+//5/13/2018
+
+// standard include stuff
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+//prototypes
+int fillit(char in[][3], int);
+void gameboard();
+
+// Main program
+      
+int main(void) {
+
+	// define variables
+
+      int ok;
+      int ct,ct2;
+      char board[3][3]={NULL};
+                              
+
+	gameboard();
+
+
+return EXIT_SUCCESS;
+
+
+
+
+}   // end of main function
+
+
+
+
+int fillIt(char in[][3],int x) {
+ 	// define variables    
+     
+     int ct, ct2,value;
+
+        // set the first number to 48 which in ascii is a 0     
+
+     value=48;
+        
+	// this loops through the 3 x 3 board and sets each element to the next number starting at 1
+
+     for (ct = 0; ct <=2; ++ct) {    // set the row number
+        for (ct2 = 0; ct2 <=2; ++ct2) {    // set the column number
+              in[ct][ct2]=value+=1; // set the value to one more than the previous (the next ascii char)
+              }                     // end inner for loop
+         }                   // end outer for loop
+
+         // return a status of 0 when done
+
+     return (0);        // success
+     }  // end function
+
+	 
+void gameboard()
+{
+	//defining variables
+	
+    char board[3][3];
+	int turnplayer,i,ct,ct2;
+	turnplayer = 1;
+	
+	//calls fillit to fill the board
+    fillIt(board,3);
+	
+	//prints the board and clears the screen with the numbers 0-9
+	system("cls");
+
+
+    printf("     |     |     \n");
+    printf("  %c  |  %c  |  %c \n", board[0][0], board[0][1], board[0][2]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+
+    printf("  %c  |  %c  |  %c \n", board[1][0], board[1][1], board[1][2]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+
+    printf("  %c  |  %c  |  %c \n", board[2][0], board[2][1], board[2][2]);
+
+    printf("     |     |     \n\n");
+	
+	//for loop that occurs 9 times for the 9 max moves
+	for (i = 0; i < 9; i++) {
+		if ( turnplayer == 1) {
+			printf("Enter the first coordinate player 1\n"); //gets x coordinate
+			scanf("%ld",&ct);
+			printf("Enter the second coordinate player 1\n"); //gets y coordinate
+			scanf("%ld",&ct2);
+			
+			
+			board[ct][ct2] = 'X'; //sets that space to X for player 1 and prints a new board
+			system("cls");
+
+    		printf("     |     |     \n");
+    		printf("  %c  |  %c  |  %c \n", board[0][0], board[0][1], board[0][2]);
+		
+		    printf("_____|_____|_____\n");
+		    printf("     |     |     \n");
+		
+		    printf("  %c  |  %c  |  %c \n", board[1][0], board[1][1], board[1][2]);
+		
+		    printf("_____|_____|_____\n");
+		    printf("     |     |     \n");
+		
+		    printf("  %c  |  %c  |  %c \n", board[2][0], board[2][1], board[2][2]);
+		
+		    printf("     |     |     \n\n");
+			turnplayer = 2;
+		}
+		else { //if it is not player 1s turn then it is player 2
+			printf("Enter the first coordinate player 2\n");
+			scanf("%ld",&ct);
+			printf("Enter the second coordinate player 2\n");
+			scanf("%ld",&ct2);
+			
+			
+			board[ct][ct2] = 'O';
+			system("cls");
+
+    		printf("     |     |     \n");
+    		printf("  %c  |  %c  |  %c \n", board[0][0], board[0][1], board[0][2]);
+		
+		    printf("_____|_____|_____\n");
+		    printf("     |     |     \n");
+		
+		    printf("  %c  |  %c  |  %c \n", board[1][0], board[1][1], board[1][2]);
+		
+		    printf("_____|_____|_____\n");
+		    printf("     |     |     \n");
+		
+		    printf("  %c  |  %c  |  %c \n", board[2][0], board[2][1], board[2][2]);
+		
+		    printf("     |     |     \n\n");
+			turnplayer = 1;
+		}
+	}
+}
